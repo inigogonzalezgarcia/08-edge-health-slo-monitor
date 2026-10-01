@@ -1,0 +1,18 @@
+# Serves /metrics on 127.0.0.1:9108 for a local Prometheus or Elastic Agent to scrape.
+[Unit]
+Description=Edge Health & SLO Monitor (Prometheus metrics)
+After=edge-monitor.service
+
+[Service]
+User=edge-monitor
+WorkingDirectory=/opt/edge-health-slo-monitor
+ExecStart=/usr/bin/python3 -m slo_monitor metrics --config /etc/edge-monitor/targets.toml --bind 127.0.0.1 --port 9108
+Restart=on-failure
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/edge-monitor
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

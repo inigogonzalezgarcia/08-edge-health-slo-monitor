@@ -1,0 +1,23 @@
+# Probes every interval_s seconds. In targets.toml set database = "/var/lib/edge-monitor/edge-probes.db".
+# Install under /etc/systemd/system/, then:
+#   systemctl daemon-reload && systemctl enable --now edge-monitor
+[Unit]
+Description=Edge Health & SLO Monitor (probes)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=edge-monitor
+WorkingDirectory=/opt/edge-health-slo-monitor
+EnvironmentFile=-/etc/edge-monitor/env
+ExecStart=/usr/bin/python3 -m slo_monitor run --config /etc/edge-monitor/targets.toml
+Restart=on-failure
+RestartSec=10
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/edge-monitor
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
