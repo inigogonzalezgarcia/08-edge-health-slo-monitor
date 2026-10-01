@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+venv/
+.venv/
+
+# Local data and generated output
+*.db
+*.db-wal
+*.db-shm
+report.html
+targets.toml
+
+# Secrets
+.env
+*.pem
+*.key
+
+# Local AI tooling
+.claude/
+.agents/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
