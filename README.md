@@ -97,10 +97,6 @@ The tests start a local HTTP server and use real sockets for the HTTP, TCP and D
 
 **What has not been tested yet:** shipping to a real Elasticsearch cluster (the index template and bulk format follow the documentation but have not been run against a cluster), the systemd units, and the webhook against a real n8n instance.
 
-## How AI was used
-
-This project was built with an AI assistant (Claude) as a pair programmer: it drafted code, tests and documentation from the scope I set and the incident-response practices I described. Every change was reviewed, and the tests and the demo were run before publishing. Responsibility for the result, and for keeping it correct, stays with me.
-
 ## Roadmap
 
 - Authoritative-nameserver DNS probe next to the system-resolver probe.
