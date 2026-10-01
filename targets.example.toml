@@ -1,0 +1,52 @@
+# Copy to targets.toml and replace the example names with your own endpoints.
+# Secrets (Elasticsearch API key, webhook secret) go in environment variables, never here.
+
+[settings]
+database = "edge-probes.db"
+slo_window_days = 30
+interval_s = 60
+elasticsearch_url = ""          # e.g. "https://localhost:9200"; empty = do not ship
+elasticsearch_index = "edge-probes"
+webhook_url = ""                # e.g. an n8n webhook that turns alerts into Teams/Slack/email messages
+
+# HTTP: status code and, optionally, a latency objective.
+[[targets]]
+name = "public-api"
+kind = "http"
+url = "https://api.example.com/health"
+expect_status = 200
+slo = 99.9
+latency_ms = 800
+tags = { tier = "edge", owner = "platform" }
+
+# DNS: resolution through the system resolver, with a latency objective.
+[[targets]]
+name = "public-api-dns"
+kind = "dns"
+host = "api.example.com"
+slo = 99.95
+latency_ms = 150
+tags = { tier = "edge", owner = "platform" }
+
+# TLS: handshake, chain and hostname validation, days until the certificate expires.
+[[targets]]
+name = "portal-tls"
+kind = "tls"
+host = "portal.example.com"
+port = 443
+slo = 99.9
+tls_warn_days = 21
+tls_critical_days = 7
+tags = { tier = "edge", owner = "platform" }
+
+# TCP: reachability of a private endpoint (for example a database behind a private link).
+# Run the probe from inside the network that should reach it.
+[[targets]]
+name = "orders-db-private"
+kind = "tcp"
+host = "orders-db.example.internal"
+port = 5432
+slo = 99.5
+latency_ms = 40
+timeout_s = 3
+tags = { tier = "private-link", owner = "data" }
