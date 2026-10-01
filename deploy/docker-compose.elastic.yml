@@ -1,0 +1,25 @@
+# Local lab only: single-node Elasticsearch and Kibana with security turned OFF,
+# reachable from this machine only (127.0.0.1). Never expose this setup to a network.
+# Start:  docker compose -f deploy/docker-compose.elastic.yml up -d
+# Stop:   docker compose -f deploy/docker-compose.elastic.yml down
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-8.19.0}
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+    ports:
+      - "127.0.0.1:9200:9200"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+  kibana:
+    image: docker.elastic.co/kibana/kibana:${ELASTIC_VERSION:-8.19.0}
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "127.0.0.1:5601:5601"
+    depends_on:
+      - elasticsearch
+volumes:
+  esdata:
