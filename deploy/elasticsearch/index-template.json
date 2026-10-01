@@ -1,0 +1,48 @@
+{
+  "index_patterns": ["edge-probes*"],
+  "priority": 200,
+  "template": {
+    "settings": { "number_of_shards": 1, "number_of_replicas": 0 },
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "@timestamp": { "type": "date" },
+        "message": { "type": "text" },
+        "event": {
+          "properties": {
+            "kind": { "type": "keyword" },
+            "category": { "type": "keyword" },
+            "dataset": { "type": "keyword" },
+            "outcome": { "type": "keyword" },
+            "duration": { "type": "long" }
+          }
+        },
+        "service": { "properties": { "name": { "type": "keyword" } } },
+        "url": { "properties": { "full": { "type": "keyword" } } },
+        "destination": { "properties": { "domain": { "type": "keyword" }, "port": { "type": "integer" } } },
+        "http": { "properties": { "response": { "properties": { "status_code": { "type": "integer" } } } } },
+        "tls": {
+          "properties": {
+            "version": { "type": "keyword" },
+            "server": { "properties": { "not_after_days": { "type": "float" } } }
+          }
+        },
+        "error": { "properties": { "message": { "type": "text" } } },
+        "labels": { "type": "object", "dynamic": true },
+        "edge": {
+          "properties": {
+            "probe": {
+              "properties": {
+                "kind": { "type": "keyword" },
+                "good": { "type": "boolean" },
+                "latency_ms": { "type": "float" },
+                "slo_target": { "type": "float" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "_meta": { "description": "Probe results from edge-health-slo-monitor (ECS-style fields)" }
+}
