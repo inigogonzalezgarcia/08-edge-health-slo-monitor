@@ -109,7 +109,7 @@ The tests start a local HTTP server and use real sockets for the HTTP, TCP and D
 
 Want this adapted to your environment (your endpoints and SLOs, your alerting channel, Elastic or Prometheus integration, an incident review process for your team)? Get in touch:
 
-- Email: [inigogonzalezgarcia@yahoo.es](mailto:inigogonzalezgarcia@yahoo.es)
+- Website (contact form): [inigogonzalezgarcia.github.io](https://inigogonzalezgarcia.github.io/about.html#contacto)
 - LinkedIn: [linkedin.com/in/igonzalez93](https://www.linkedin.com/in/igonzalez93)
 
 ## License
