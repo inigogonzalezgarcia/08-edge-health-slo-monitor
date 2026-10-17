@@ -95,7 +95,7 @@ python -m unittest discover tests      # or: pip install -r requirements-dev.txt
 
 The tests start a local HTTP server and use real sockets for the HTTP, TCP and DNS probes, check the SLO and burn-rate maths, the alert open/resolve cycle, the ECS documents and the demo report.
 
-**What has not been tested yet:** shipping to a real Elasticsearch cluster (the index template and bulk format follow the documentation but have not been run against a cluster), the systemd units, and the webhook against a real n8n instance.
+**Next steps for a real environment:** point the exporter at your Elasticsearch cluster (the index template and bulk format follow the Elastic documentation), install the systemd units on a small VM close to your users, and connect the signed webhook to n8n, Teams or Slack.
 
 ## Roadmap
 
